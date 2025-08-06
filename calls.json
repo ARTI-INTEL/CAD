@@ -1,0 +1,23 @@
+[
+  {
+    "callId": 1,
+    "nature": "BURGLARY",
+    "location": "123 Main St",
+    "city": "Black Water",
+    "county": "Oakland County",
+    "priority": "High",
+    "status": "ON SCENE",
+    "units": ["234", "281"]
+  },
+
+  {
+    "callId": 2,
+    "nature": "MVA",
+    "location": "123 Freedome Ave",
+    "city": "Black Water",
+    "county": "Oakland County",
+    "priority": "High",
+    "status": "ENROUTE",
+    "units": ["RS-12", "ENG-24", "AMB-1", "AMB-2", "N401", "1S-24", "1P-02"]
+  }
+]

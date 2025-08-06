@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CAD Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="navbar">
+        <button id="logout-btn">CLOCK-OUT</button>
+        <button id="home-btn">HOME</button>
+        <button id="map-btn" onclick="mapOpen()">MAP</button>
+        <button id="create-call-btn" onclick="callOpen()">CREATE CALL</button>
+        <button id="search-btn">SEARCH</button>
+        <button id="search-btn">MESSAGE</button>
+        <button id="reports-btn">CALL HISTORY</button>
+        <button id="reports-btn">NOTE PAD</button>
+
+        <!-- Status buttons -->
+        <div class="status-buttons">
+            <button class="available" data-status="AVAILABLE">Available</button>
+            <button class="unavailable" data-status="UNAVAILABLE">Unavailable</button>
+            <button class="on-scene" data-status="ON SCENE">On Scene</button>
+            <button class="enroute" data-status="ENROUTE">Enroute</button>
+            <button class="busy" data-status="BUSY">Busy</button>
+        </div>
+    </div>
+
+    <table class="calls-table">
+        <thead>
+            <tr>
+                <th>Call#</th><th>Nature</th><th>Location</th>
+                <th>Priority</th><th>Status</th><th>Units</th>
+            </tr>
+        </thead>
+        <tbody id="calls-body"></tbody>
+    </table>
+
+    <table class="bolo-table">
+        <thead>
+            <tr>
+                <th>Type</th><th>Reason</th><th>Description</th>
+            </tr>
+        </thead>
+        <tbody id="bolo-body"></tbody>
+    </table>
+
+    <table class="officers-table">
+        <thead>
+            <tr>
+                <th>Officer</th><th>Unit</th><th>Status</th><th>Call#</th><th>Department</th><th>Location</th>
+            </tr>
+        </thead>
+        <tbody id="officers-body"></tbody>
+    </table>
+
+    <div id="map-popup" class="popup hidden">
+        <div class="map-popup-content">
+            <div class="popup-header">
+                <span class="popup-title">Map</span>
+                <button id="close-map" class="close-btn" onclick="mapClose()">&times;</button>
+            </div>
+            <img src="https://policeroleplay.community/images/ERLC_Map.png" alt="Map" id="popup-map-image">
+        </div>
+    </div>
+
+    <div id="create-call-popup" class="popup hidden">
+        <div class="call-popup-content">
+            <div class="popup-header">
+                <span class="popup-title">Call Information</span>
+                <button id="close-call" class="close-btn" onclick="callClose()">&times;</button>
+            </div>
+            <form action="#" class="call-info-form">
+                <label for="nature">Call Nature</label>
+                <input type="text" id="nature" required />
+                <label for="loc">Location</label>
+                <input type="text" id="loc" required />
+                <label for="prty">Priority</label>
+                <input type="text" id="prty" required />
+                <button type="submit" onclick="createCall()">Create</button>
+            </form>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CAD Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="login-container">
+    <h2>Metric CAD Login</h2>
+    <form id="login-form">
+      <label for="name">Officer Name</label>
+      <input type="text" id="name" required />
+      <label for="unit">Unit Number</label>
+      <input type="text" id="unit" required />
+      <label for="agency">Department</label>
+      <input type="text" id="agency" required />
+      <button type="submit">LOGIN</button>
+      <div id="login-error"></div>
+    </form>
+  </div>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const unit = document.getElementById('unit').value.trim();
+      const agency = document.getElementById('agency').value.trim();
+
+      if (name && unit && agency) {
+        const officer = {
+          name,
+          unit,
+          status: "AVAILABLE",
+          call: "",
+          agency,
+          location: "",
+          description: "(MDC) 10-41"
+        };
+        localStorage.setItem('loggedOfficer', JSON.stringify(officer));
+        window.location.href = 'index.html';
+      } else {
+        document.getElementById('login-error').textContent = "Please fill all fields.";
+      }
+    });
+  </script>
+</body>
+</html>
