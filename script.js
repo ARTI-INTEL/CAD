@@ -64,24 +64,59 @@ function renderOfficerTable() {
 
 renderOfficerTable();
 
+function homeOpen() {
+  allClose()
+  const homePage = document.getElementById('home-page');
+  homePage.classList.remove('hidden');
+}
+
 function mapOpen() {
-  const mapPopup = document.getElementById('map-popup');
-  mapPopup.classList.remove('hidden');
+  allClose()
+  const mapPage = document.getElementById('map-page');
+  mapPage.classList.remove('hidden');
 }
 
-function mapClose() {
-  const mapPopup = document.getElementById('map-popup');
-  mapPopup.classList.add('hidden');
+function cadOpen() {
+  allClose()
+  const callPage = document.getElementById('cad-page');
+  callPage.classList.remove('hidden');
 }
 
-function callOpen() {
-  const callPopup = document.getElementById('create-call-popup');
-  callPopup.classList.remove('hidden');
+function searchOpen() {
+  allClose()
+  const searchPage = document.getElementById('search-page')
+  searchPage.classList.remove('hidden')
 }
 
-function callClose() {
-  const callPopup = document.getElementById('create-call-popup');
-  callPopup.classList.add('hidden');
+function reportsOpen(){
+  allClose()
+  const reportsPage = document.getElementById('reports-page')
+  reportsPage.classList.remove('hidden')
+}
+
+function historyOpen() {
+  allClose()
+  const historyPage = document.getElementById('history-page')
+  historyPage.classList.remove('hidden')
+}
+
+function allClose() {
+  const homePage = document.getElementById('home-page');
+  const mapPage = document.getElementById('map-page');
+  const callPage = document.getElementById('cad-page');
+  const searchPage = document.getElementById('search-page')
+  const reportsPage = document.getElementById('reports-page')
+  const historyPage = document.getElementById('history-page')
+  homePage.classList.add('hidden')
+  mapPage.classList.add('hidden')
+  callPage.classList.add('hidden')
+  searchPage.classList.add('hidden')
+  reportsPage.classList.add('hidden')
+  historyPage.classList.add('hidden')
+}
+
+function notesPopup() {
+
 }
 
 function createCall() {

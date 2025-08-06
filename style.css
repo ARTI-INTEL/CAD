@@ -6,6 +6,11 @@ body {
   padding: 10px;
 }
 
+/* Hide initially */
+.hidden {
+  display: none !important;
+}
+
 .navbar {
   display: flex;
   flex-wrap: wrap;
@@ -64,7 +69,10 @@ body {
 
 .calls-table,
 .officers-table,
-.bolo-table {
+.bolo-table,
+.ped-table,
+.vic-table,
+.gun-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
@@ -73,13 +81,16 @@ body {
 
 .calls-table th, .calls-table td,
 .officers-table th, .officers-table td,
-.bolo-table th, .bolo-table td {
+.bolo-table th, .bolo-table td,
+.ped-table th, .ped-table td,
+.vic-table th, .vic-table td,
+.gun-table th, .gun-table td {
   border: 1px solid #444;
   padding: 8px;
   text-align: left;
 }
 
-.calls-table th, .officers-table th, .bolo-table th {
+.calls-table th, .officers-table th, .bolo-table th, .ped-table th, .vic-table th, .gun-table th {
   background-color: #1f1f1f;
   color: #fff;
   text-transform: uppercase;
@@ -188,76 +199,17 @@ body::-webkit-scrollbar-thumb {
   color: #ff4c4c;
 }
 
-#map-container {
-  margin: 20px auto;
-  text-align: center;
+#map-page {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#map-image {
-  max-width: 100%;
-  height: auto;
-  border: 2px solid #444;
-  border-radius: 8px;
-}
-
-/* Popup Background */
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
+#map-page img {
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-/* Hide initially */
-.hidden {
-  display: none;
-}
-
-/* Popup Container */
-.call-popup-content {
-  background-color: #1a1a1a;
-  border-radius: 6px;
-  box-shadow: 0 0 20px #000;
-  padding: 20px;
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-}
-
-.map-popup-content {
-  background-color: #1a1a1a;
-  border-radius: 6px;
-  box-shadow: 0 0 20px #000;
-  max-width: 90vw;
-  max-height: 90vh;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-}
-
-/* Title Bar */
-.popup-header {
-  background-color: #183263;
-  padding: 2px 8px;  /* thinner bar */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Title Text */
-.popup-title {
-  color: white;
-  font-weight: bold;
-  font-family: 'Consolas', monospace;
-  font-size: 13px;
-  margin: 0;
+  max-width: 1200px;
+  height: auto;
 }
 
 /* Close Button */
@@ -272,39 +224,26 @@ body::-webkit-scrollbar-thumb {
   color: red;
 }
 
-/* Map Image */
-#popup-map-image {
-  height: auto;
-  border-top: 2px solid #333;
-}
-
-/* Call Info Form */
-.call-info-form label {
-  display: block;
-  text-align: left;
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
-.call-info-form input {
-  width: 230px;
-  padding: 8px 10px;
-  border-radius: 4px;
-  border: none;
-  font-family: 'Consolas', monospace;
-  font-size: 14px;
-  margin: 10px;
-}
-
-.call-info-form button {
+button {
   background-color: #1e3a8a;
   color: white;
   border: none;
-  padding: 10px 0;
-  font-weight: bold;
-  border-radius: 5px;
+  padding: 8px 12px;
+  border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 10%;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 10px;
   font-family: 'Consolas', monospace;
-  width: 100%;
-  font-size: 16px;
+}
+
+button:hover {
+  background-color: #2954c3;
 }

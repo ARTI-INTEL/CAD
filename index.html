@@ -9,13 +9,14 @@
 <body>
     <div class="navbar">
         <button id="logout-btn">CLOCK-OUT</button>
-        <button id="home-btn">HOME</button>
+        <button id="home-btn" onclick="homeOpen()">HOME</button>
         <button id="map-btn" onclick="mapOpen()">MAP</button>
-        <button id="create-call-btn" onclick="callOpen()">CREATE CALL</button>
-        <button id="search-btn">SEARCH</button>
-        <button id="search-btn">MESSAGE</button>
-        <button id="reports-btn">CALL HISTORY</button>
-        <button id="reports-btn">NOTE PAD</button>
+        <button id="cad-btn" onclick="cadOpen()">CAD</button>
+        <button id="search-btn" onclick="searchOpen()">SEARCH</button>
+        <button id="message-btn">MESSAGE(WIP)</button>
+        <button id="reports-btn" onclick="reportsOpen()">REPORTS</button>
+        <button id="history-btn" onclick="historyOpen()">CALL HISTORY</button>
+        <button id="notes-btn" onclick="notesPopup()">NOTE PAD</button>
 
         <!-- Status buttons -->
         <div class="status-buttons">
@@ -27,60 +28,119 @@
         </div>
     </div>
 
-    <table class="calls-table">
-        <thead>
-            <tr>
-                <th>Call#</th><th>Nature</th><th>Location</th>
-                <th>Priority</th><th>Status</th><th>Units</th>
-            </tr>
-        </thead>
-        <tbody id="calls-body"></tbody>
-    </table>
+    <div id="home-page" class="home-page">
+        <h1>Welcome to the CAD, this CAD serves the county of Pinecreast and involves the following departments.</h1>
+        <ul>
+            <li>SSPD</li>
+            <li>PCSO</li>
+            <li>NSP</li>
+            <li>PCFD</li>
+            <li>NWDOT</li>
+        </ul>
+    </div>
+    
+    <div id="map-page" class="map-page hidden">
+        <img src="https://policeroleplay.community/images/ERLC_Map.png" alt="Map">
+    </div>
 
-    <table class="bolo-table">
-        <thead>
-            <tr>
-                <th>Type</th><th>Reason</th><th>Description</th>
-            </tr>
-        </thead>
-        <tbody id="bolo-body"></tbody>
-    </table>
+    <div id="cad-page" class="cad-page hidden">
+        <h3>Active Calls</h3>
+        <table class="calls-table">
+            <thead>
+                <tr>
+                    <th>Call#</th><th>Nature</th><th>Location</th>
+                    <th>Priority</th><th>Status</th><th>Units</th>
+                </tr>
+            </thead>
+            <tbody id="calls-body"></tbody>
+        </table>
+        
+        <h3>Active BOLOs</h3>
+        <table class="bolo-table">
+            <thead>
+                <tr>
+                    <th>Type</th><th>Reason</th><th>Description</th>
+                </tr>
+            </thead>
+            <tbody id="bolo-body"></tbody>
+        </table>
+        
+        <h3>On Duty Units</h3>
+        <table class="officers-table">
+            <thead>
+                <tr>
+                    <th>Officer</th><th>Unit</th><th>Status</th><th>Call#</th><th>Department</th><th>Location</th>
+                </tr>
+            </thead>
+            <tbody id="officers-body"></tbody>
+        </table>
+    </div>
 
-    <table class="officers-table">
-        <thead>
-            <tr>
-                <th>Officer</th><th>Unit</th><th>Status</th><th>Call#</th><th>Department</th><th>Location</th>
-            </tr>
-        </thead>
-        <tbody id="officers-body"></tbody>
-    </table>
-
-    <div id="map-popup" class="popup hidden">
-        <div class="map-popup-content">
-            <div class="popup-header">
-                <span class="popup-title">Map</span>
-                <button id="close-map" class="close-btn" onclick="mapClose()">&times;</button>
+    <div id="search-page" class="search-page hidden">
+        <h3>Search</h3>
+        <form id="search-form">
+            <label for="search-input">Enter Name, Plate or VIN/Serial Number:</label>
+            <input type="text" id="search-input" placeholder="Name or Plate" required>
+            <button type="submit">Search</button>
+        </form>
+        <div id="search-results">
+            <div class="ped-results">
+                <h4>Pedestrian Results</h4>
+                <table class="ped-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th><th>Age</th><th>Lisences/Permits</th><th>Reports</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ped-table-body"></tbody>
+                </table>
             </div>
-            <img src="https://policeroleplay.community/images/ERLC_Map.png" alt="Map" id="popup-map-image">
+
+            <div class="vic-results">
+                <h4>Vehicle Results</h4>
+                <table class="vic-table">
+                    <thead>
+                        <tr>
+                            <th>Plate</th><th>VIN/Serial</th><th>Owner</th><th>Model</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vic-table-body"></tbody>
+                </table>
+            </div>
+
+            <div class="gun-results">
+                <h4>Gun Results</h4>
+                <table class="gun-table">
+                    <thead>
+                        <tr>
+                            <th>Serial</th><th>Type</th><th>Owner</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gun-table-body"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-    <div id="create-call-popup" class="popup hidden">
-        <div class="call-popup-content">
-            <div class="popup-header">
-                <span class="popup-title">Call Information</span>
-                <button id="close-call" class="close-btn" onclick="callClose()">&times;</button>
-            </div>
-            <form action="#" class="call-info-form">
-                <label for="nature">Call Nature</label>
-                <input type="text" id="nature" required />
-                <label for="loc">Location</label>
-                <input type="text" id="loc" required />
-                <label for="prty">Priority</label>
-                <input type="text" id="prty" required />
-                <button type="submit" onclick="createCall()">Create</button>
-            </form>
-        </div>
+    <div id="reports-page" class="reports-page">
+
+    </div>
+
+    <div id="history-page" class="history-page hidden">
+        <h3>Call History</h3>
+        <table class="calls-table">
+            <thead>
+                <tr>
+                    <th>Call#</th><th>Nature</th><th>Location</th>
+                    <th>Priority</th><th>Status</th><th>Units</th>
+                </tr>
+            </thead>
+            <tbody id="calls-body"></tbody>
+        </table>
+    </div>
+
+    <div class="notepad-popup">
+
     </div>
 
 <script src="script.js"></script>
