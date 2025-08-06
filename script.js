@@ -25,28 +25,6 @@ document.querySelectorAll('.status-buttons button').forEach(button => {
   });
 });
 
-fetch('calls.json')
-  .then(res => res.json())
-  .then(calls => {
-    const tbody = document.getElementById('calls-body');
-    calls.forEach(call => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${call.callId}</td>
-        <td class="${statusClass(call.nature)}">${call.nature}</td>
-        <td>${call.location}</td>
-        <td>${call.priority}</td>
-        <td class="${statusClass(call.status)}">${call.status}</td>
-        <td class="units">${call.units.join(', ')}</td>
-      `;
-      tbody.appendChild(row);
-    });
-});
-
-function renderCallsTable() {
-
-}
-
 function renderOfficerTable() {
   const tbody = document.getElementById('officers-body');
   tbody.innerHTML = '';
@@ -116,57 +94,84 @@ function allClose() {
 }
 
 function notesPopup() {
+  const popup = document.getElementById('notepad-popup');
+  popup.classList.remove('hidden');
+  const notes = localStorage.getItem('notes') || '';
+  document.getElementById('notepad-textarea').value = notes;
+}
 
+function closeNotepadPopup() {
+  const popup = document.getElementById('notepad-popup');
+  popup.classList.add('hidden');
+}
+
+function saveNotes() {
+  const notes = document.getElementById('notepad-textarea').value;
+  localStorage.setItem('notes', notes);
+  alert('Notes saved successfully!');
+  closeNotepadPopup();
+}
+
+function createCallPopup() {
+  const popup = document.getElementById('add-call-popup');
+  popup.classList.remove('hidden');
+}
+
+function closeCreateCallPopup() {
+  const popup = document.getElementById('add-call-popup');
+  popup.classList.add('hidden');
+  document.getElementById('create-call-form').reset();
 }
 
 function createCall() {
-  // Getting json file contents
-  fetch('calls.json')
-  .then(res => res.json())
-  .then(data => {
-  
-    const nature = document.getElementById('nature');
-    const location = document.getElementById('loc');
-    const prty = document.getElementById('prty');
+  const nature = document.getElementById('call-nature');
+  const location = document.getElementById('call-location');
+  const prty = document.getElementById('call-priorty');
 
-    // const newCall = { callId: data_array.len() - 1, nature: nature.value, location: location.value, priority: prty.value };
-    // data.push(newObject);
+  const row = document.createElement('tr');
+  const tbody = document.getElementById('calls-body');
+    row.innerHTML = `
+      <td>${data.length + 1}</td>
+      <td class="${statusClass(nature.value)}">${nature.value}</td>
+      <td>${location.value}</td>
+      <td>${[prty.value]}</td>
+      <td class="${statusClass('enroute')}">${'ENROUTE'}</td>
+      <td class="units">${"4PI-04, MED-04, FLY-02, 2PS-01"}</td>
+    `;
+    tbody.appendChild(row);
 
-    // const updatedJsonString = JSON.stringify(data, null, 2);
+    num = data.length + 1
 
-    // fs.writeFileSync(filePath, updatedJsonString, 'utf8');
-    // console.log('Object added to JSON file successfully!');
-
-    const row = document.createElement('tr');
-    const tbody = document.getElementById('calls-body');
-      row.innerHTML = `
-        <td>${data.length + 1}</td>
-        <td class="${statusClass(nature.value)}">${nature.value}</td>
-        <td>${location.value}</td>
-        <td>${[prty.value]}</td>
-        <td class="${statusClass('enroute')}">${'ENROUTE'}</td>
-        <td class="units">${"4PI-04, MED-04, FLY-02, 2PS-01"}</td>
-      `;
-      tbody.appendChild(row);
-
-      num = data.length + 1
-
-    callClose()
-
-  })
-
-  fetch('/calls', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      callId: num,
-      nature: nature.value,
-      location: location.value,
-      priority: prty.value
-    })
-  })
-  .then(res => res.json())
-  .then(data => console.log('Saved:', data));
+  closeCreateCallPopup();
+  alert('Call created successfully!');
 }
+
+function createBoloPopup() {
+  const popup = document.getElementById('add-bolo-popup');
+  popup.classList.remove('hidden');
+}
+
+function closeCreateBoloPopup() {
+  const popup = document.getElementById('add-bolo-popup');
+  popup.classList.add('hidden');
+  document.getElementById('create-bolo-form').reset();
+} 
+
+function createBolo() {
+  const type = document.getElementById('bolo-type');
+  const reason = document.getElementById('bolo-reason');
+  const description = document.getElementById('bolo-description');
+
+  const row = document.createElement('tr');
+  const tbody = document.getElementById('bolos-body');
+  row.innerHTML = `
+    <td>${type.value}</td>
+    <td>${reason.value}</td>  
+    <td>${description.value}</td>
+  `;
+  tbody.appendChild(row);
+  closeCreateBoloPopup();
+  alert('BOLO created successfully!');
+  document.getElementById('create-bolo-form').reset();
+}
+

@@ -13,7 +13,6 @@
         <button id="map-btn" onclick="mapOpen()">MAP</button>
         <button id="cad-btn" onclick="cadOpen()">CAD</button>
         <button id="search-btn" onclick="searchOpen()">SEARCH</button>
-        <button id="message-btn">MESSAGE(WIP)</button>
         <button id="reports-btn" onclick="reportsOpen()">REPORTS</button>
         <button id="history-btn" onclick="historyOpen()">CALL HISTORY</button>
         <button id="notes-btn" onclick="notesPopup()">NOTE PAD</button>
@@ -28,8 +27,8 @@
         </div>
     </div>
 
-    <div id="home-page" class="home-page">
-        <h1>Welcome to the CAD, this CAD serves the county of Pinecreast and involves the following departments.</h1>
+    <div id="home-page">
+        <h1>Welcome to the CAD, this CAD serves the county of Pinecrest and involves the following departments.</h1>
         <ul>
             <li>SSPD</li>
             <li>PCSO</li>
@@ -37,13 +36,14 @@
             <li>PCFD</li>
             <li>NWDOT</li>
         </ul>
+        <p>This CAD was developed by Detectice_1990.</p>
     </div>
     
-    <div id="map-page" class="map-page hidden">
+    <div id="map-page" class="hidden">
         <img src="https://policeroleplay.community/images/ERLC_Map.png" alt="Map">
     </div>
 
-    <div id="cad-page" class="cad-page hidden">
+    <div id="cad-page" class="hidden">
         <h3>Active Calls</h3>
         <table class="calls-table">
             <thead>
@@ -54,6 +54,8 @@
             </thead>
             <tbody id="calls-body"></tbody>
         </table>
+        <br>
+        <button onclick="createCallPopup()">Add Call</button>
         
         <h3>Active BOLOs</h3>
         <table class="bolo-table">
@@ -64,6 +66,8 @@
             </thead>
             <tbody id="bolo-body"></tbody>
         </table>
+        <br>
+        <button onclick="createBoloPopup()">Add BOLO</button>
         
         <h3>On Duty Units</h3>
         <table class="officers-table">
@@ -76,7 +80,7 @@
         </table>
     </div>
 
-    <div id="search-page" class="search-page hidden">
+    <div id="search-page" class="hidden">
         <h3>Search</h3>
         <form id="search-form">
             <label for="search-input">Enter Name, Plate or VIN/Serial Number:</label>
@@ -122,11 +126,17 @@
         </div>
     </div>
 
-    <div id="reports-page" class="reports-page">
-
+    <div id="reports-page" class="hidden">
+        <div class="reports-btn">
+            <button>Issue Citation</button>
+            <button>Arrest Report</button>
+            <button>Incident Report</button>
+            <button>Investigation Report(investigative Units)</button>
+            <button>After Action Report(Tactical Units)</button>
+        </div>
     </div>
 
-    <div id="history-page" class="history-page hidden">
+    <div id="history-page" class="hidden">
         <h3>Call History</h3>
         <table class="calls-table">
             <thead>
@@ -139,8 +149,77 @@
         </table>
     </div>
 
-    <div class="notepad-popup">
+    <div id="notepad-popup" class="popup hidden">
+        <div class="popup-content">
+            <span class="close" onclick="closeNotepadPopup()">&times;</span>
+            <h2>Note Pad</h2>
+            <textarea id="notepad-textarea" placeholder="Write your notes here..."></textarea>
+            <button id="save-notes-btn" onclick="saveNotes()">Save Notes</button>
+        </div>
+    </div>
 
+    <div id="add-call-popup" class="popup hidden">
+        <div class="popup-content">
+            <span class="close" onclick="closeCreateCallPopup()">&times;</span>
+            <h2>Create Call</h2>
+            <form id="create-call-form">
+                <label for="call-nature">Nature of Call</label>
+                <input type="text" id="call-nature" required />
+                <label for="call-location">Location</label>
+                <input type="text" id="call-location" required />
+                <label for="call-priority">Priority</label>
+                <select id="call-priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <button type="submit" onclick="createCall()">Create Call</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="add-bolo-popup" class="popup hidden">
+        <div class="popup-content">
+            <span class="close" onclick="closeCreateBoloPopup()">&times;</span>
+            <h2>Create BOLO</h2>
+            <form id="create-bolo-form">
+                <label for="bolo-type">Type</label>
+                <input type="text" id="bolo-type" required />
+                <label for="bolo-reason">Reason</label>
+                <input type="text" id="bolo-reason" required />
+                <label for="bolo-description">Description</label>
+                <textarea id="bolo-description" required></textarea>
+                <button type="submit" onclick="createBolo()">Create BOLO</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-call-popup" class="popup hidden">
+
+    </div>
+
+    <div id="edit-bolo-popup" class="popup hidden">
+        
+    </div>
+
+    <div id="citation-report-popup" class="popup hidden">
+
+    </div>
+
+    <div id="arrest-report-popup" class="popup hidden">
+        
+    </div>
+
+    <div id="incident-report-popup" class="popup hidden">
+        
+    </div>
+
+    <div id="investigation-report-popup" class="popup hidden">
+        
+    </div>
+
+    <div id="after-action-report-popup" class="popup hidden">
+        
     </div>
 
 <script src="script.js"></script>
