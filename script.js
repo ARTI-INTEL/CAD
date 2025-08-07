@@ -91,6 +91,7 @@ function allClose() {
   searchPage.classList.add('hidden')
   reportsPage.classList.add('hidden')
   historyPage.classList.add('hidden')
+  closeAllPopup();
 }
 
 function notesPopup() {
@@ -331,7 +332,26 @@ function deleteBolo(row) {
   closeEditBoloPopup();
 }
 
+function closeAllPopup() {
+  closeNotepadPopup();
+  closeCreateCallPopup();
+  closeCreateBoloPopup();
+  closeEditCallPopup();
+  closeEditBoloPopup();
+  closeWWPopup();
+  closeCitePopup();
+  closeArrestPopup();
+  closeIRPopup();
+  closeUOFRPopup();
+  closeWarrantPopup();
+  closeCRPopup();
+  closeIvRPopup();
+  closeAARPopup();
+  // closeSRRPopup(); // Uncomment if Supervisor Request Report is implemented
+}
+
 function openWWPopup() {
+  closeAllPopup();
   const popup = document.getElementById('written-warning-popup');
   popup.classList.remove('hidden');
 }
@@ -343,6 +363,7 @@ function closeWWPopup() {
 }
 
 function openCitePopup() {
+  closeAllPopup();
   const popup = document.getElementById('citation-report-popup');
   popup.classList.remove('hidden');
 }
@@ -354,6 +375,7 @@ function closeCitePopup() {
 }
 
 function openArrestPopup() {
+  closeAllPopup();
   const popup = document.getElementById('arrest-report-popup');
   popup.classList.remove('hidden');
 }
@@ -365,6 +387,7 @@ function closeArrestPopup() {
 }
 
 function openIRPopup() {
+  closeAllPopup();
   const popup = document.getElementById('incident-report-popup');
   popup.classList.remove('hidden');
 } 
@@ -376,6 +399,7 @@ function closeIRPopup() {
 } 
 
 function openUOFRPopup() {
+  closeAllPopup();
   const popup = document.getElementById('uof-report-popup');
   popup.classList.remove('hidden');
 } 
@@ -387,6 +411,7 @@ function closeUOFRPopup() {
 } 
 
 function openWarrantPopup() {
+  closeAllPopup();
   const popup = document.getElementById('warrant-report-popup');
   popup.classList.remove('hidden');
 } 
@@ -398,6 +423,7 @@ function closeWarrantPopup() {
 }
 
 function openCRPopup() {
+  closeAllPopup();
   const popup = document.getElementById('crash-report-popup');
   popup.classList.remove('hidden');
 } 
@@ -409,6 +435,7 @@ function closeCRPopup() {
 }
 
 function openIvRPopup() {
+  closeAllPopup();
   const popup = document.getElementById('investigation-report-popup');
   popup.classList.remove('hidden');
 }
@@ -420,17 +447,19 @@ function closeIvRPopup() {
 }
 
 function openAARPopup() {
+  closeAllPopup();
   const popup = document.getElementById('aar-report-popup');
   popup.classList.remove('hidden');
 } 
 
 function closeAARPopup() {
-  const popup = document.getElementById('aar-report-popup');
+  const popup = document.getElementById('after-action-report-popup');
   popup.classList.add('hidden');
-  document.getElementById('aar-report-form').reset();
+  document.getElementById('after-action-report-form').reset();
 } 
 
 // function openSRRPopup() {
+//   closeAllPopup();
 //   const popup = document.getElementById('supervisor-request-report-popup');
 //   popup.classList.remove('hidden');
 // }

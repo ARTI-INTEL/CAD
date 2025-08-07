@@ -305,6 +305,13 @@ button:hover {
 /*make it so pop and text area have some space in between them on the left side */
 #notepad-popup {
   margin-left: 20px;
+  background-color: #fff;
+  color: #000;
+}
+
+#notepad-popup textarea {
+  background: none;
+  color: black !important;
 }
 
 

@@ -15,7 +15,7 @@
         <button id="search-btn" onclick="searchOpen()">SEARCH</button>
         <button id="reports-btn" onclick="reportsOpen()">REPORTS</button>
         <button id="history-btn" onclick="historyOpen()">CALL HISTORY</button>
-        <button id="notes-btn" onclick="notesPopup()">NOTE PAD</button>
+        <button id="notes-btn" onclick="notesPopup()">NOTEPAD</button>
 
         <!-- Status buttons -->
         <div class="status-buttons">
@@ -420,6 +420,17 @@
             </form>
         </div>
     </div> -->
+
+    <!-- Keep the notepad popup at the bottom so it shows on top of all other elements. -->
+    <div id="notepad-popup" class="popup hidden">
+        <div class="popup-content">
+            <span class="close" onclick="closeNotepadPopup()">&times;</span>
+            <h2>Note Pad</h2>
+            <textarea id="notepad-textarea" placeholder="Write your notes here..."></textarea>
+            <button id="save-notes-btn" onclick="saveNotes()">Save Notes</button>
+        </div>
+    </div>
+
 
 <script src="script.js"></script>
 </body>
