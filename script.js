@@ -178,8 +178,8 @@ function createBolo() {
 }
 
 // Event that triggers when you click on a row in the calls table
-const table = document.getElementById('calls-table'); // Assuming your table has an ID 'myTable'
-table.addEventListener('click', function(event) {
+const callsTable = document.getElementById('calls-table'); // Assuming your table has an ID 'myTable'
+callsTable.addEventListener('click', function(event) {
     editCallPopup(event.target.closest('tr'));
 });
 
@@ -273,3 +273,221 @@ function updateCall(row) {
   closeEditCallPopup();
   alert('Call updated successfully!');
 }
+
+const boloTable = document.getElementById('bolo-table'); // Assuming your table has an ID 'myTable'
+boloTable.addEventListener('click', function(event) {
+    editBoloPopup(event.target.closest('tr'));
+});
+
+function editBoloPopup(row) {
+  const popup = document.getElementById('edit-bolo-popup');
+  popup.classList.remove('hidden');
+
+  // Get the cells of the clicked row
+  const cells = row.getElementsByTagName('td');
+  
+  // Populate the form fields with the current values
+  document.getElementById('edit-bolo-type').value = cells[0].textContent;
+  document.getElementById('edit-bolo-reason').value = cells[1].textContent;
+  document.getElementById('edit-bolo-description').value = cells[2].textContent;
+
+  // Store the row index in global var for later use
+  const currentRow = row.rowIndex; // Get the index of the clicked row
+  localStorage.setItem("row",currentRow)
+
+  document.getElementById('update-bolo').onclick = function() {
+    updateBolo(row);
+  }
+
+  document.getElementById('delete-bolo').onclick = function() {
+    deleteBolo(row);
+  }
+}
+
+function closeEditBoloPopup() {
+  const popup = document.getElementById('edit-bolo-popup');
+  popup.classList.add('hidden');
+  document.getElementById('edit-bolo-form').reset();
+  localStorage.removeItem("row"); // Clear the row index from local storage
+}
+
+function updateBolo(row) {
+  const type = document.getElementById('edit-bolo-type');
+  const reason = document.getElementById('edit-bolo-reason');
+  const description = document.getElementById('edit-bolo-description');
+
+  // Update the row directly
+  row.cells[0].textContent = type.value;
+  row.cells[1].textContent = reason.value;
+  row.cells[2].textContent = description.value;
+
+  closeEditBoloPopup();
+  alert('BOLO updated successfully!');
+}
+
+function deleteBolo(row) {
+  row.remove();
+  alert('BOLO deleted successfully!');
+  closeEditBoloPopup();
+}
+
+function openWWPopup() {
+  const popup = document.getElementById('written-warning-popup');
+  popup.classList.remove('hidden');
+}
+
+function closeWWPopup() {
+  const popup = document.getElementById('written-warning-popup');
+  popup.classList.add('hidden');
+  document.getElementById('written-warning-form').reset();
+}
+
+function openCitePopup() {
+  const popup = document.getElementById('citation-report-popup');
+  popup.classList.remove('hidden');
+}
+
+function closeCitePopup() {
+  const popup = document.getElementById('citation-report-popup');
+  popup.classList.add('hidden');
+  document.getElementById('citation-report-form').reset();
+}
+
+function openArrestPopup() {
+  const popup = document.getElementById('arrest-report-popup');
+  popup.classList.remove('hidden');
+}
+
+function closeArrestPopup() {
+  const popup = document.getElementById('arrest-report-popup');
+  popup.classList.add('hidden');
+  document.getElementById('arrest-report-form').reset();
+}
+
+function openIRPopup() {
+  const popup = document.getElementById('incident-report-popup');
+  popup.classList.remove('hidden');
+} 
+
+function closeIRPopup() {
+  const popup = document.getElementById('incident-report-popup');
+  popup.classList.add('hidden');
+  document.getElementById('incident-report-form').reset();
+} 
+
+function openUOFRPopup() {
+  const popup = document.getElementById('uof-report-popup');
+  popup.classList.remove('hidden');
+} 
+
+function closeUOFRPopup() {
+  const popup = document.getElementById('uof-report-popup');
+  popup.classList.add('hidden');
+  document.getElementById('uof-report-form').reset();
+} 
+
+function openWarrantPopup() {
+  const popup = document.getElementById('warrant-report-popup');
+  popup.classList.remove('hidden');
+} 
+
+function closeWarrantPopup() {
+  const popup = document.getElementById('warrant-report-popup');
+  popup.classList.add('hidden');
+  document.getElementById('warrant-report-form').reset();
+}
+
+function openCRPopup() {
+  const popup = document.getElementById('crash-report-popup');
+  popup.classList.remove('hidden');
+} 
+
+function closeCRPopup() {
+  const popup = document.getElementById('crash-report-popup');
+  popup.classList.add('hidden');
+  document.getElementById('crash-report-form').reset();
+}
+
+function openIvRPopup() {
+  const popup = document.getElementById('investigation-report-popup');
+  popup.classList.remove('hidden');
+}
+
+function closeIvRPopup() {
+  const popup = document.getElementById('investigation-report-popup');
+  popup.classList.add('hidden');
+  document.getElementById('investigation-report-form').reset();
+}
+
+function openAARPopup() {
+  const popup = document.getElementById('aar-report-popup');
+  popup.classList.remove('hidden');
+} 
+
+function closeAARPopup() {
+  const popup = document.getElementById('aar-report-popup');
+  popup.classList.add('hidden');
+  document.getElementById('aar-report-form').reset();
+} 
+
+// function openSRRPopup() {
+//   const popup = document.getElementById('supervisor-request-report-popup');
+//   popup.classList.remove('hidden');
+// }
+
+// function closeSRRPopup() {
+//   const popup = document.getElementById('supervisor-request-report-popup');
+//   popup.classList.add('hidden');
+//   document.getElementById('supervisor-request-report-form').reset();
+// }
+
+function issueWW() {
+  closeWWPopup();
+  alert('Written Warning issued successfully!');
+}
+
+function issueCite() {
+  closeCitePopup();
+  alert('Citation Report issued successfully!');
+}
+
+function issueArrest() {
+  closeArrestPopup();
+  alert('Arrest Report issued successfully!');
+}
+
+function issueIR() {
+  closeIRPopup();
+  alert('Incident Report issued successfully!');
+}
+
+function issueUOF() {
+  closeUOFRPopup();
+  alert('Use of Force Report issued successfully!');
+}
+
+function issueWarrant() {
+  closeWarrantPopup();
+  alert('Warrant Report issued successfully!');
+}
+
+function issueCR() {
+  closeCRPopup();
+  alert('Crash Report issued successfully!');
+}
+
+function issueIvR() {
+  closeIvRPopup();
+  alert('Investigation Report issued successfully!');
+}
+
+function issueAAR() {
+  closeAARPopup();
+  alert('After Action Report issued successfully!');
+}
+
+// function issueSRR() {
+//   closeSRRPopup();
+//   alert('Supervisor Request Report issued successfully!');
+// }
+

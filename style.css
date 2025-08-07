@@ -114,6 +114,10 @@ body {
   font-size: 13px;
 }
 
+tbody {
+  overflow: auto;
+}
+
 .available {
   color: lime;
   font-weight: bold;

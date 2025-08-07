@@ -128,14 +128,16 @@
 
     <div id="reports-page" class="hidden">
         <div class="reports-btn">
-            <button>Written Warning</button>
-            <button>Issue Citation</button>
-            <button>Arrest Report</button>
-            <button>Incident Report</button>
-            <button>Crash Report(Traffic Units)</button>
-            <button>Investigation Report(investigative Units)</button>
-            <button>After Action Report(Tactical Units)</button>
-            <button>Supervisor Request Report(Supervisor Units)</button>
+            <button onclick="openWWPopup()">Written Warning</button>
+            <button onclick="openCitePopup()">Issue Citation</button>
+            <button onclick="openArrestPopup()">Arrest Report</button>
+            <button onclick="openIRPopup()">Incident Report</button>
+            <button onclick="openUOFRPopup()">Use of Force Report</button>
+            <button onclick="openWarrantPopup()">Warrant Report</button>
+            <button onclick="openCRPopup()">Crash Report(Traffic Units)</button>
+            <button onclick="openIvRPopup()">Investigation Report(investigative Units)</button>
+            <button onclick="openAARPopup()">After Action Report(Tactical Units)</button>
+            <button onclick="openSRRPopup()">Supervisor Request Report(Supervisor Units)</button>
         </div>
     </div>
 
@@ -224,28 +226,200 @@
     </div>
 
     <div id="edit-bolo-popup" class="popup hidden">
-        
+        <div class="popup-content">
+            <span class="close" onclick="closeEditBoloPopup()">&times;</span>
+            <h2>Edit BOLO</h2>
+            <form id="edit-bolo-form">
+                <label for="edit-bolo-type">Type</label>
+                <select id="edit-bolo-type">
+                    <option value="Vehicle">Vehicle</option>
+                    <option value="Ped">Ped</option>
+                </select>
+                <label for="edit-bolo-reason">Reason</label>
+                <input type="text" id="edit-bolo-reason" required />
+                <label for="edit-bolo-description">Description</label>
+                <textarea id="edit-bolo-description" required></textarea>
+                <br>
+                <button id="delete-bolo" type="submit">End BOLO</button>
+                <button id="update-bolo" type="submit">Update BOLO</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="written-warning-popup" class="popup hidden">
+        <div class="popup-content">
+            <span class="close" onclick="closeWWPopup()">&times;</span>
+            <h2>Written Warning</h2>
+            <form id="written-warning-form">
+                <label for="ww-name">Name</label>
+                <input type="text" id="ww-name" required />
+                <label for="ww-plate">Plate</label>
+                <input type="text" id="ww-plate"/>
+                <label for="ww-charge">Charge</label>
+                <textarea id="ww-charge" required></textarea>
+                <button type="submit" onclick="issueWW()">Issue Written Warning</button>
+            </form>
+        </div>
     </div>
 
     <div id="citation-report-popup" class="popup hidden">
-
+        <div class="popup-content">
+            <span class="close" onclick="closeCitePopup()">&times;</span>
+            <h2>Issue Citation</h2>
+            <form id="citation-report-form">
+                <label for="cite-name">Name</label>
+                <input type="text" id="cite-name" required />
+                <label for="cite-plate">Plate</label>
+                <input type="text" id="cite-plate"/>
+                <label for="cite-charge">Charge</label>
+                <textarea id="cite-charge" required></textarea>
+                <label for="cite-fine">Fine Amount</label>
+                <input type="number" id="cite-fine" required />
+                <button type="submit" onclick="issueCite()">Issue Citation</button>
+            </form>
+        </div>
     </div>
 
     <div id="arrest-report-popup" class="popup hidden">
-        
+        <div class="popup-content">
+            <span class="close" onclick="closeArrestPopup()">&times;</span>
+            <h2>Arrest Report</h2>
+            <form id="arrest-report-form">
+                <label for="arrest-call-id"></label>
+                <input type="hidden" id="arrest-call-id" />
+                <label for="arrest-unit">Unit Number</label>
+                <label for="arrest-name">Name</label>
+                <input type="text" id="arrest-name" required />
+                <label for="arrest-charge">Charge</label>
+                <textarea id="arrest-charge" required></textarea>
+                <label for="arrest-searched">Searched?</label>
+                <checkbox id="arrest-searched" />
+                <label for="arrest-evidence">Items Found?</label>
+                <textarea id="arrest-evidence" placeholder="Items Found"></textarea>
+                <label for="arrest-rights">Mirandized?</label>
+                <checkbox id="arrest-rights" />
+                <button type="submit" onclick="issueArrest()">Issue Arrest Report</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="uof-report-popup" class="popup hidden">
+        <div class="popup-content">
+            <span class="close" onclick="closeUOFRPopup()">&times;</span>
+            <h2>Use of Force Report</h2>
+            <form id="uof-report-form">
+                <label for="uof-call-id">Call ID</label>
+                <input type="text" id="uof-call-id" required />
+                <label for="uof-type">Type</label>
+                <select id="uof-type">
+                    <option value="Taser">Taser</option>
+                    <option value="Pepper Spray">Pepper Spray</option>
+                    <option value="Baton">Baton</option>
+                    <option value="Beanbag">Beanbag</option>
+                    <option value="Firearm">Firearm</option>
+                    <option value="Vehicle">Vehicle</option>
+                </select>
+                <label for="uof-reason">Reason, explain suspects behavior on the scene.</label>
+                <textarea id="uof-reason"></textarea>
+                <button type="submit" onclick="issueUOF()">Issue Use of Force Report</button>
+            </form>
+        </div>
     </div>
 
     <div id="incident-report-popup" class="popup hidden">
-        
+        <div class="popup-content">
+            <span class="close" onclick="closeIRPopup()">&times;</span>
+            <h2>Incident Report</h2>
+            <form id="incident-report-form">
+                <label for="ir-call-id">Call Id</label>
+                <input type="text" id="ir-call-id" required />
+                <label for="ir-type">Type Tag</label>
+                <input type="text" id="ir-type" required />
+                <label for="ir-description">Description of Incident</label>
+                <textarea id="ir-description" required></textarea>
+                <button type="submit" onclick="issueIR()">Issue Incident Report</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="warrant-report-popup" class="popup hidden">
+        <div class="popup-content">
+            <span class="close" onclick="closeWarrantPopup()">&times;</span>
+            <h2>Warrant Report</h2>
+            <form id="warrant-report-form">
+                <label for="warrant-name">Name</label>
+                <input type="text" id="warrant-name" required />
+                <label for="warrant-type">Type</label>
+                <select id="warrant-type">
+                    <option value="Arrest">Arrest</option>
+                    <option value="Search">Search</option>
+                </select>
+                <button type="submit" onclick="issueWarrant()">Issue Warrant Report</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="crash-report-popup" class="popup hidden">
+        <div class="popup-content">
+            <span class="close" onclick="closeCRPopup()">&times;</span>
+            <h2>Crash Report</h2>
+            <form id="crash-report-form">
+                <label for="cr-call-id">Call ID</label>
+                <input type="text" id="cr-call-id" required/>
+                <label for="cr-plate">Plate</label>
+                <input type="text" id="cr-plate" required/>
+                <label for="cr-description">Description of Crash</label>
+                <textarea id="cr-description" required></textarea>
+                <button type="submit" onclick="issueCR()">Issue</button>
+            </form>
+        </div>
     </div>
 
     <div id="investigation-report-popup" class="popup hidden">
-        
+        <div class="popup-content">
+            <span class="close" onclick="closeIvRPopup()">&times;</span>
+            <h2>Investigation Report</h2>
+            <form id="investigation-report-form">
+                <label for="investigation-name">Name</label>
+                <input type="text" id="investigation-name" required />
+                <label for="investigation-plate">Plate</label>
+                <input type="text" id="investigation-plate"/>
+                <label for="investigation-description">Description of Investigation</label>
+                <textarea id="investigation-description" required></textarea>
+                <button type="submit" onclick="issueIvR()">Issue Investigation Report</button>
+            </form>
+        </div>
     </div>
 
     <div id="after-action-report-popup" class="popup hidden">
-        
+        <div class="popup-content">
+            <span class="close" onclick="closeAARPopup()">&times;</span>
+            <h2>After Action Report</h2>
+            <form id="after-action-report-form">
+                <label for="aar-call-id">Call ID</label>
+                <input type="text" id="aar-call-id" required />
+                <label for="aar-description">Description of Action Taken</label>
+                <textarea id="aar-description" required></textarea>
+                <button type="submit" onclick="issueAAR()">Issue After Action Report</button>
+            </form>
+        </div>
     </div>
+
+    <!-- <div id="supervisor-request-report-popup" class="popup hidden">
+        <div class="popup-content">
+            <span class="close" onclick="closeSRRPopup()">&times;</span>
+            <h2>Supervisor Request Report</h2>
+            <form id="supervisor-request-report-form">
+                <label for="srr-name">Name</label>
+                <input type="text" id="srr-name" required />
+                <label for="srr-plate">Plate</label>
+                <input type="text" id="srr-plate"/>
+                <label for="srr-description">Description of Request</label>
+                <textarea id="srr-description" required></textarea>
+                <button type="submit" onclick="issueSRR()">Issue Supervisor Request Report</button>
+            </form>
+        </div>
+    </div> -->
 
 <script src="script.js"></script>
 </body>
