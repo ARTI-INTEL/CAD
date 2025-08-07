@@ -45,11 +45,11 @@
 
     <div id="cad-page" class="hidden">
         <h3>Active Calls</h3>
-        <table class="calls-table">
+        <table class="calls-table" id="calls-table">
             <thead>
                 <tr>
                     <th>Call#</th><th>Nature</th><th>Location</th>
-                    <th>Priority</th><th>Status</th><th>Units</th>
+                    <th>Priority</th><th>Units</th>
                 </tr>
             </thead>
             <tbody id="calls-body"></tbody>
@@ -58,7 +58,7 @@
         <button onclick="createCallPopup()">Add Call</button>
         
         <h3>Active BOLOs</h3>
-        <table class="bolo-table">
+        <table class="bolo-table" id="bolo-table">
             <thead>
                 <tr>
                     <th>Type</th><th>Reason</th><th>Description</th>
@@ -73,7 +73,7 @@
         <table class="officers-table">
             <thead>
                 <tr>
-                    <th>Officer</th><th>Unit</th><th>Status</th><th>Call#</th><th>Department</th><th>Location</th>
+                    <th>Officer</th><th>Callsign</th><th>Status</th><th>Current Call</th><th>Department</th><th>Location</th>
                 </tr>
             </thead>
             <tbody id="officers-body"></tbody>
@@ -128,21 +128,24 @@
 
     <div id="reports-page" class="hidden">
         <div class="reports-btn">
+            <button>Written Warning</button>
             <button>Issue Citation</button>
             <button>Arrest Report</button>
             <button>Incident Report</button>
+            <button>Crash Report(Traffic Units)</button>
             <button>Investigation Report(investigative Units)</button>
             <button>After Action Report(Tactical Units)</button>
+            <button>Supervisor Request Report(Supervisor Units)</button>
         </div>
     </div>
 
     <div id="history-page" class="hidden">
         <h3>Call History</h3>
-        <table class="calls-table">
+        <table class="calls-table" id="history-table">
             <thead>
                 <tr>
                     <th>Call#</th><th>Nature</th><th>Location</th>
-                    <th>Priority</th><th>Status</th><th>Units</th>
+                    <th>Priority</th><th>Units</th>
                 </tr>
             </thead>
             <tbody id="calls-body"></tbody>
@@ -184,7 +187,10 @@
             <h2>Create BOLO</h2>
             <form id="create-bolo-form">
                 <label for="bolo-type">Type</label>
-                <input type="text" id="bolo-type" required />
+                <select id="bolo-type">
+                    <option value="Vehicle">Vehicle</option>
+                    <option value="Ped">Ped</option>
+                </select>
                 <label for="bolo-reason">Reason</label>
                 <input type="text" id="bolo-reason" required />
                 <label for="bolo-description">Description</label>
@@ -195,7 +201,26 @@
     </div>
 
     <div id="edit-call-popup" class="popup hidden">
-
+        <div class="popup-content">
+            <span class="close" onclick="closeEditCallPopup()">&times;</span>
+            <h2>Edit Call</h2>
+            <form id="edit-call-form">
+                <p id="call-ID">Call ID: </p>
+                <label for="edit-call-nature">Nature of Call</label>
+                <input type="text" id="edit-call-nature" required />
+                <label for="edit-call-location">Location</label>
+                <input type="text" id="edit-call-location" required />
+                <label for="edit-call-priority">Priority</label>
+                <select id="edit-call-priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <button id="call-attach">Attach</button>
+                <button id="code-4" type="submit">CODE 4</button>
+                <button id="update-call" type="submit" >Update Call</button>
+            </form>
+        </div>
     </div>
 
     <div id="edit-bolo-popup" class="popup hidden">

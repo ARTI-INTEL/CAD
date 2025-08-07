@@ -123,24 +123,25 @@ function closeCreateCallPopup() {
   document.getElementById('create-call-form').reset();
 }
 
+// Function to create a call and add it to the table
 function createCall() {
   const nature = document.getElementById('call-nature');
   const location = document.getElementById('call-location');
-  const prty = document.getElementById('call-priorty');
+  const prty = document.getElementById('call-priority');
+  const table = document.getElementById('calls-table');
 
-  const row = document.createElement('tr');
+  num = table.rows.length; // Get the current number of rows to use as call number
+
   const tbody = document.getElementById('calls-body');
-    row.innerHTML = `
-      <td>${data.length + 1}</td>
-      <td class="${statusClass(nature.value)}">${nature.value}</td>
-      <td>${location.value}</td>
-      <td>${[prty.value]}</td>
-      <td class="${statusClass('enroute')}">${'ENROUTE'}</td>
-      <td class="units">${"4PI-04, MED-04, FLY-02, 2PS-01"}</td>
-    `;
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${num}</td>
+    <td class="${statusClass(nature.value)}">${nature.value}</td>
+    <td>${location.value}</td>
+    <td>${[prty.value]}</td>
+    <td class="units">${""}</td>
+  `;
     tbody.appendChild(row);
-
-    num = data.length + 1
 
   closeCreateCallPopup();
   alert('Call created successfully!');
@@ -157,21 +158,118 @@ function closeCreateBoloPopup() {
   document.getElementById('create-bolo-form').reset();
 } 
 
+// Function to create a BOLO and add it to the table
 function createBolo() {
   const type = document.getElementById('bolo-type');
   const reason = document.getElementById('bolo-reason');
   const description = document.getElementById('bolo-description');
 
+  const tbody = document.getElementById('bolo-body');
   const row = document.createElement('tr');
-  const tbody = document.getElementById('bolos-body');
   row.innerHTML = `
     <td>${type.value}</td>
     <td>${reason.value}</td>  
     <td>${description.value}</td>
   `;
   tbody.appendChild(row);
+
   closeCreateBoloPopup();
   alert('BOLO created successfully!');
-  document.getElementById('create-bolo-form').reset();
 }
 
+// Event that triggers when you click on a row in the calls table
+const table = document.getElementById('calls-table'); // Assuming your table has an ID 'myTable'
+table.addEventListener('click', function(event) {
+    editCallPopup(event.target.closest('tr'));
+});
+
+// Function to open the edit call popup and populate it with the clicked row's data
+function editCallPopup(row) {
+  const popup = document.getElementById('edit-call-popup');
+  popup.classList.remove('hidden');
+
+  // Get the cells of the clicked row
+  const cells = row.getElementsByTagName('td');
+  
+  // Populate the form fields with the current values
+  document.getElementById('call-ID').textContent = `Call ID: ${cells[0].textContent}`;
+  document.getElementById('edit-call-nature').value = cells[1].textContent;
+  document.getElementById('edit-call-location').value = cells[2].textContent;
+  document.getElementById('edit-call-priority').value = cells[3].textContent;
+
+  //event listener for buttons
+  document.getElementById('call-attach').onclick = function() {
+    attachToCall(row);
+  }
+
+  document.getElementById('code-4').onclick = function() {
+    code4(row);
+  }
+
+  document.getElementById('update-call').onclick = function() {
+    updateCall(row); 
+  }
+  // Store the row index in global var for later use
+  const currentRow = row.rowIndex; // Get the index of the clicked row
+  localStorage.setItem("row",currentRow)
+} 
+
+function closeEditCallPopup() {
+  const popup = document.getElementById('edit-call-popup');
+  popup.classList.add('hidden');
+  document.getElementById('edit-call-form').reset();
+  localStorage.removeItem("row"); // Clear the row index from local storage
+}
+
+// Updates the units assigned to the call
+function attachToCall(row) {
+  const cells = row.getElementsByTagName('td');
+  let units = cells[4].textContent;
+  
+  if (!units.includes(officer.unit)) {
+    units = units ? `${units}, ${officer.unit}` : officer.unit;
+    cells[4].textContent = units;
+  }
+
+  closeEditCallPopup();
+  alert('Call updated successfully!');
+}
+
+// Function to send call to history table by clicking CODE 4 button
+function code4(row) {
+  const historyTable = document.getElementById('history-table');
+  const historyBody = historyTable.querySelector('tbody');
+
+  // Create a new row for the history table
+  const newRow = document.createElement('tr');
+  newRow.innerHTML = `
+    <td>${row.cells[0].textContent}</td>
+    <td>${row.cells[1].textContent}</td>
+    <td>${row.cells[2].textContent}</td>
+    <td>${row.cells[3].textContent}</td>
+    <td>${row.cells[4].textContent}</td>
+  `;
+
+  // Append the new row to the history table
+  historyBody.appendChild(newRow);
+
+  // Remove the row from the calls table
+  row.remove();
+
+  closeEditCallPopup();
+  alert('Call marked as CODE 4 and moved to history successfully!');
+}
+
+function updateCall(row) {
+  const nature = document.getElementById('edit-call-nature');
+  const location = document.getElementById('edit-call-location');
+  const prty = document.getElementById('edit-call-priority');
+
+  // Update the row directly
+  row.cells[1].textContent = nature.value;
+  row.cells[2].textContent = location.value;
+  row.cells[3].textContent = prty.value;
+
+  closeEditCallPopup();
+  alert('Call updated successfully!');
+}
