@@ -1,325 +1,138 @@
-body {
-  background-color: #000;
-  color: #fff;
-  font-family: 'Consolas', monospace;
-  margin: 0;
-  padding: 10px;
-}
-
-/* Hide initially */
 .hidden {
-  display: none !important;
+    display: none !important; 
 }
 
-/*center popup to the center of the screen */
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #222;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
-  z-index: 1000;
-  padding: 10px 20px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.navbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  background-color: #183263;
-  padding: 10px;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 999;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    color: #fff;
 }
 
-.navbar button {
-  background-color: #1e3a8a;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
+/* === Topbar/Header === */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #222;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-.navbar button:hover {
-  background-color: #2954c3;
+/* Left, Center, Right Sections */
+.topbar .left-section {
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
-.status-buttons {
-  display: flex;
-  gap: 10px;
-  margin-left: auto;
+.topbar .center-section,
+.topbar .right-section {
+    display: flex;
+    gap: 10px;
 }
 
-.status-buttons button {
-  background-color: transparent;
-  border: 2px solid;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-weight: bold;
-  color: white;
-  cursor: pointer;
+/* Buttons in Header */
+.topbar button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
 }
 
-/* Outline colors for status */
-.status-buttons .available {
-  border-color: lime;
-}
-.status-buttons .unavailable {
-  border-color: red;
-}
-.status-buttons .on-scene {
-  border-color: #4eaaff;
-}
-.status-buttons .enroute {
-  border-color: limegreen;
-}
-.status-buttons .busy {
-  border-color: orange;
+.topbar button:hover {
+    background-color: #666;
 }
 
-.calls-table,
-.officers-table,
-.bolo-table,
-.ped-table,
-.vic-table,
-.gun-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  background-color: #111;
+/* === Dashboard === */
+.dashboard {
+    padding: 80px 20px 20px; /* Top padding so content isn't hidden under topbar */
 }
 
-.calls-table th, .calls-table td,
-.officers-table th, .officers-table td,
-.bolo-table th, .bolo-table td,
-.ped-table th, .ped-table td,
-.vic-table th, .vic-table td,
-.gun-table th, .gun-table td {
-  border: 1px solid #444;
-  padding: 8px;
-  text-align: left;
+/* === Server Table === */
+.server-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #333;
+    color: white;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-.calls-table th, .officers-table th, .bolo-table th, .ped-table th, .vic-table th, .gun-table th {
-  background-color: #1f1f1f;
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 13px;
+.server-table th, 
+.server-table td {
+    padding: 12px;
+    text-align: left;
 }
 
-tbody {
-  overflow: auto;
+.server-table thead {
+    background-color: #444;
 }
 
-.available {
-  color: lime;
-  font-weight: bold;
+.server-table tbody tr:nth-child(even) {
+    background-color: #3a3a3a;
 }
 
-.unavailable {
-  color: red;
-  font-weight: bold;
+.server-table tbody tr:hover {
+    background-color: #555;
 }
 
-.on-scene {
-  color: #4eaaff;
-  font-weight: bold;
+.login-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    border: 3px solid gray;
+    text-align: center;
+    width: 300px;
 }
 
-.enroute {
-  color: limegreen;
-  font-weight: bold;
+.login-container h2 {
+    margin-bottom: 20px;
+    color: black;
 }
 
-.busy {
-  color: orange;
-  font-weight: bold;
+.discord-login {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #5865F2; /* Discord purple-blue */
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: background-color 0.2s ease-in-out;
 }
 
-.calls-table td.units {
-  color: #00ffcc;
+.discord-login:hover {
+    background-color: #4752c4;
 }
 
-.calls-table tr:hover,
-.officers-table tr:hover {
-  background-color: #222;
+.login-links {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
 }
 
-/* Scrollbar */
-body::-webkit-scrollbar {
-  width: 8px;
-}
-body::-webkit-scrollbar-thumb {
-  background-color: #333;
-  border-radius: 4px;
+.login-links a {
+    text-decoration: none;
+    color: black;
 }
 
-/* Login page */
-#login-container {
-  background-color: #183263;
-  padding: 30px 40px;
-  border-radius: 8px;
-  box-shadow: 0 0 15px #2954c3;
-  width: 320px;
-  text-align: center;
-  margin: auto;
-  margin-top: 10%;
-}
-
-#login-container h2 {
-  margin-bottom: 20px;
-  font-weight: bold;
-  font-size: 1.6em;
-}
-
-#login-form label {
-  display: block;
-  text-align: left;
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
-#login-form input {
-  width: 100%;
-  padding: 8px 10px;
-  border-radius: 4px;
-  border: none;
-  margin-bottom: 18px;
-  font-family: 'Consolas', monospace;
-  font-size: 14px;
-}
-
-#login-form button {
-  background-color: #1e3a8a;
-  color: white;
-  border: none;
-  padding: 10px 0;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'Consolas', monospace;
-  width: 100%;
-  font-size: 16px;
-}
-
-#login-form button:hover {
-  background-color: #2954c3;
-}
-
-#login-error {
-  margin-top: 12px;
-  font-size: 0.9em;
-  font-weight: bold;
-  color: #ff4c4c;
-}
-
-#map-page {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#map-page img {
-  width: 100%;
-  max-width: 1200px;
-  height: auto;
-}
-
-/* Close Button */
-.close-btn {
-  all: unset; /* completely removes all default styles, including background */
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  line-height: 1;
-}
-.close-btn:hover {
-  color: red;
-}
-
-button {
-  background-color: #1e3a8a;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-input[type="text"],
-input[type="password"] {
-  width: 10%;
-  padding: 8px 10px;
-  border-radius: 4px;
-  border: none;
-  margin-bottom: 10px;
-  font-family: 'Consolas', monospace;
-}
-
-select {
-  width: 15%;
-  padding: 8px 10px;
-  border-radius: 4px;
-  border: none;
-  margin-bottom: 10px;
-  font-family: 'Consolas', monospace;
-}
-
-button:hover {
-  background-color: #2954c3;
-}
-
-.reports-btn {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 20px;
-}
-
-.reports-btn button {
-  margin: 5px;;
-}
-
-/* Making text area look like a piece of paper */
-#notepad-popup textarea{
-  width: 100%;
-  height: 200px;
-  padding: 10px;
-  border-radius: 4px;
-  border: none;
-  background-color: #f0f0f0;
-  font-family: 'Consolas', monospace;
-  font-size: 14px;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-}
-
-/*make it so pop and text area have some space in between them on the left side */
-#notepad-popup {
-  margin-left: 20px;
-  background-color: #fff;
-  color: #000;
-}
-
-#notepad-popup textarea {
-  background: none;
-  color: black !important;
-}
-
-
-.close :hover {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  color: #ff0000;
-  font-size: 24px;
-  cursor: pointer;
+.login-links a:hover {
+    text-decoration: underline;
 }
