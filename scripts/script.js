@@ -10,11 +10,11 @@ function statusClass(status) {
 }
 
 const officer = JSON.parse(localStorage.getItem('loggedOfficer'));
-if (!officer) window.location.href = 'login.html';
+if (!officer) window.location.href = '../html/login.html';
 
 document.getElementById('logout-btn').addEventListener('click', () => {
   localStorage.removeItem('loggedOfficer');
-  window.location.href = 'login.html';
+  window.location.href = '../html/login.html';
 });
 
 document.querySelectorAll('.status-buttons button').forEach(button => {
